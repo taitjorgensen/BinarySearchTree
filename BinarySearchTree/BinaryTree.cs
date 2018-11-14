@@ -10,41 +10,57 @@ namespace BinarySearchTree
     {
         Node originalRoot;
         Node root;
-        Node leftChild;
-        Node rightChild;
         int rootValue;
         
         //Constructor
-
+        public BinaryTree()
+        {
+            root = null;
+        }
 
         //Methods
 
-        public void Add(int value)
+
+        public void Add(int data)
         {
+            
+            Node node = new Node(data);
             if (originalRoot == null)
             {
-                originalRoot = new Node(value);
+                originalRoot = node;
                 rootValue = originalRoot.data;
-                root = originalRoot;
-                return;
-            }
+            }                
             else
             {
-                while (root != null)
+                root = originalRoot;
+                while (true)
                 {
-                    if (value <= root.data)
+                    if (node.data > root.data)
                     {
-                        leftChild = new Node(value);
-                        root = leftChild;                        
+
+                        if (root.rightChild == null)
+                        {
+                            root.rightChild = node;
+                            return;
+                        }
+                        else
+                        {
+                            root = root.rightChild;
+                        }
                     }
                     else
                     {
-                        rightChild = new Node(value);
-                        root = rightChild;                        
+                        if (root.leftChild == null)
+                        {
+                            root.leftChild = node;
+                            return;
+                        }
+                        else
+                        {
+                            root = root.leftChild;
+                        }
                     }
-                    return;
                 }
-                return;
             }
         }
         public void Search(int value)
@@ -53,7 +69,6 @@ namespace BinarySearchTree
             if (rootValue == value)
             {
                 Console.WriteLine("Found at Root Value");
-                //Console.ReadLine();
             }
             else if (value < rootValue)
             {
